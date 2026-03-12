@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eduardo — Página Personal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #0a0a0f;
+      --surface: #111118;
+      --accent: #e8c97a;
+      --accent2: #c47a4a;
+      --text: #f0ece4;
+      --muted: #7a7870;
+      --border: rgba(232, 201, 122, 0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* NOISE TEXTURE */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(20px);
+      background: rgba(10,10,15,0.7);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 4rem 4rem 6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      display: inline-block;
+      padding: 0.4rem 1rem;
+      margin-bottom: 2rem;
+      width: fit-content;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 6vw, 6rem);
+      font-weight: 900;
+      line-height: 1.0;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s 0.15s ease both;
+    }
+
+    .hero-name span {
+      display: block;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 420px;
+      margin-bottom: 3rem;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      animation: fadeUp 0.8s 0.45s ease both;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #0a0a0f;
+      padding: 0.85rem 2rem;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.85rem 2rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 6rem 4rem 4rem;
+      position: relative;
+    }
+
+    .hero-visual {
+      width: 320px;
+      height: 420px;
+      position: relative;
+    }
+
+    .hero-card {
+      width: 100%;
+      height: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1s 0.5s ease both;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 40% 40%, rgba(232,201,122,0.08), transparent 60%);
+    }
+
+    .hero-card-content {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 2rem;
+      background: linear-gradient(to top, rgba(10,10,15,0.95), transparent);
+    }
+
+    .hero-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-card-role {
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .deco-lines {
+      position: absolute;
+      top: -20px;
+      right: -30px;
+      width: 120px;
+      height: 120px;
+      border: 1px solid var(--border);
+      transform: rotate(15deg);
+    }
+
+    .deco-lines::before {
+      content: '';
+      position: absolute;
+      inset: 15px;
+      border: 1px solid var(--border);
+    }
+
+    /* ORB BACKGROUND */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.12;
+      pointer-events: none;
+    }
+
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: var(--accent);
+      top: -100px; right: -100px;
+    }
+
+    .orb-2 {
+      width: 400px; height: 400px;
+      background: var(--accent2);
+      bottom: -100px; left: -100px;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 7rem 6rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      line-height: 1.15;
+    }
+
+    /* ABOUT */
+    .about {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+
+    .about-text p + p { margin-top: 1.2rem; }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      transition: border-color 0.3s;
+    }
+
+    .stat-card:hover { border-color: var(--accent); }
+
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+
+    .stat-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* SKILLS */
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 2rem;
+    }
+
+    .skill-tag {
+      border: 1px solid var(--border);
+      padding: 0.5rem 1.2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      transition: all 0.3s;
+      cursor: default;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(232,201,122,0.04);
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(232,201,122,0.04), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .project-card:hover::before { opacity: 1; }
+
+    .project-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-link {
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .project-link::after { content: '→'; }
+
+    /* CONTACT */
+    .contact {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .contact-email {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.25rem;
+      transition: border-color 0.3s;
+      display: inline-block;
+      margin: 2rem 0;
+    }
+
+    .contact-email:hover { border-color: var(--accent); }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      font-size: 0.78rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .social-links a:hover { color: var(--accent); }
+
+    /* FOOTER */
+    footer {
+      padding: 2rem 6rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1.2rem 2rem; }
+      .nav-links { gap: 1.5rem; }
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 7rem 2rem 4rem; }
+      section { padding: 5rem 2rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Eduardo</div>
+    <ul class="nav-links">
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" style="padding:0; position:relative;">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="hero-left">
+      <span class="hero-tag">✦ Bienvenido a mi espacio</span>
+      <h1 class="hero-name">
+        Hola, soy<br>
+        <span>Eduardo</span>
+      </h1>
+      <p class="hero-desc">
+        Apasionado por crear experiencias digitales únicas. 
+        Aquí comparto mis proyectos, habilidades y todo lo que me define.
+      </p>
+      <div class="hero-cta">
+        <a href="#proyectos" class="btn-primary">Ver proyectos</a>
+        <a href="#contacto" class="btn-outline">Contactar</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="deco-lines"></div>
+        <div class="hero-card">
+          <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a1a24,#111118);display:flex;align-items:center;justify-content:center;">
+            <div style="font-family:'Playfair Display',serif;font-size:6rem;font-weight:900;background:linear-gradient(135deg,#e8c97a,#c47a4a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;">E</div>
+          </div>
+          <div class="hero-card-content">
+            <div class="hero-card-name">Eduardo</div>
+            <div class="hero-card-role">Desarrollador · Creativo</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section class="about" id="sobre-mi">
+    <div class="about-grid">
+      <div>
+        <div class="section-label">— Sobre mí</div>
+        <h2 class="section-title">Quien soy<br>y qué hago</h2>
+        <div class="about-text">
+          <p>Soy Eduardo, una persona apasionada por la tecnología y la creación digital. Me dedico a aprender y construir cosas que tengan un impacto real.</p>
+          <p>Me gusta explorar nuevas ideas, trabajar en proyectos desafiantes y seguir creciendo cada día tanto personal como profesionalmente.</p>
+        </div>
+        <div class="skills-list">
+          <span class="skill-tag">HTML / CSS</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Diseño Web</span>
+          <span class="skill-tag">Resolución de problemas</span>
+          <span class="skill-tag">Trabajo en equipo</span>
+        </div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number">∞</div>
+          <div class="stat-label">Ganas de aprender</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Compromiso</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Creatividad activa</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">★★★</div>
+          <div class="stat-label">Calidad de trabajo</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos">
+    <div class="section-label">— Proyectos</div>
+    <h2 class="section-title">Mi trabajo</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-num">01</div>
+        <div class="project-title">Proyecto Uno</div>
+        <p class="project-desc">Descripción breve de tu primer proyecto. Qué problema resuelve y qué tecnologías usaste.</p>
+        <a href="#" class="project-link">Ver más</a>
+      </div>
+      <div class="project-card">
+        <div class="project-num">02</div>
+        <div class="project-title">Proyecto Dos</div>
+        <p class="project-desc">Descripción breve de tu segundo proyecto. Puedes personalizar estos textos con tus proyectos reales.</p>
+        <a href="#" class="project-link">Ver más</a>
+      </div>
+      <div class="project-card">
+        <div class="project-num">03</div>
+        <div class="project-title">Proyecto Tres</div>
+        <p class="project-desc">Descripción breve de tu tercer proyecto. ¡Reemplaza esto con tu información real!</p>
+        <a href="#" class="project-link">Ver más</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact" id="contacto">
+    <div class="section-label">— Contacto</div>
+    <h2 class="section-title">Trabajemos<br>juntos</h2>
+    <p style="color:var(--muted);max-width:400px;margin:0 auto;">¿Tienes un proyecto en mente o simplemente quieres saludar? No dudes en escribirme.</p>
+    <br>
+    <a href="mailto:tuemail@gmail.com" class="contact-email">tuemail@gmail.com</a>
+    <div class="social-links">
+      <a href="https://github.com/eeduardocespedes-beep">GitHub</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Twitter</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>© 2025 Eduardo — Todos los derechos reservados</span>
+    <span>Hecho con ♥ y GitHub Pages</span>
+  </footer>
+
+</body>
+</html>
