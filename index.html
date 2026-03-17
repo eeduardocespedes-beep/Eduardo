@@ -6,69 +6,134 @@
     <title>Portafolio - Edwin Céspedes</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #2563eb; --bg: #f8fafc; --text: #1e293b; --github: #24292e; --youtube: #ff0000; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg); color: var(--text); line-height: 1.6; margin: 0; padding: 20px; }
-        .container { max-width: 900px; margin: 40px auto; background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
-        h1 { color: #0f172a; font-size: 2.5rem; margin-bottom: 10px; }
+        :root { 
+            --primary: #2563eb; 
+            --bg: #f8fafc; 
+            --text: #1e293b; 
+            --github: #24292e; 
+            --youtube: #ff0000; 
+            --pdf: #e67e22;
+        }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--bg); 
+            color: var(--text); 
+            line-height: 1.6; 
+            margin: 0; 
+            padding: 20px; 
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 40px auto; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 12px; 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); 
+        }
+        h1 { color: #0f172a; font-size: 2.5rem; margin-bottom: 10px; line-height: 1.2; }
+        .author { font-size: 1.1rem; color: #64748b; margin-bottom: 20px; }
         .badge { background: #dbeafe; color: #1e40af; padding: 5px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-right: 5px; }
         
-        /* Estilos para los nuevos links del inicio */
-        .top-links { margin: 20px 0; display: flex; gap: 15px; flex-wrap: wrap; }
-        .link-item { text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; font-size: 0.95rem; }
+        /* Sección de enlaces superiores */
+        .top-links { 
+            margin: 25px 0; 
+            display: flex; 
+            gap: 20px; 
+            flex-wrap: wrap; 
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 20px;
+        }
+        .link-item { 
+            text-decoration: none; 
+            font-weight: 600; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            font-size: 0.95rem;
+            transition: opacity 0.2s;
+        }
+        .link-item:hover { opacity: 0.7; }
         .link-github { color: var(--github); }
         .link-youtube { color: var(--youtube); }
+        .link-pdf { color: var(--pdf); }
         
         .description { font-size: 1.1rem; color: #475569; margin: 25px 0; }
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 30px 0; }
         .stat-card { background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary); }
-        .btn { display: inline-block; background: var(--primary); color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; transition: transform 0.2s; border: none; }
-        .btn:hover { transform: translateY(-2px); background: #1d4ed8; }
+        
+        .btn-main { 
+            display: inline-block; 
+            background: var(--primary); 
+            color: white; 
+            padding: 16px 32px; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: 600; 
+            transition: transform 0.2s, background 0.2s; 
+            border: none;
+            margin-top: 20px;
+        }
+        .btn-main:hover { 
+            transform: translateY(-2px); 
+            background: #1d4ed8; 
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        @media (max-width: 600px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <span class="badge">Machine Learning</span>
-        <span class="badge">Deep Learning</span>
-        <span class="badge">Python</span>
+        <div style="margin-bottom: 15px;">
+            <span class="badge">Deep Learning</span>
+            <span class="badge">Python</span>
+            <span class="badge">TensorFlow</span>
+        </div>
         
         <h1>Predicción de Mora en Créditos Bancarios</h1>
-        <p><strong>Autor:</strong> Edwin Céspedes Alvarado</p>
+        <p class="author"><strong>Por:</strong> Edwin Céspedes Alvarado</p>
 
         <div class="top-links">
             <a href="https://github.com/eeduardocespedes-beep/Eduardo" class="link-item link-github" target="_blank">
-                📁 Ver Repositorio en GitHub
+                📁 Repositorio GitHub
             </a>
             <a href="https://youtu.be/WHdcdxRetK8" class="link-item link-youtube" target="_blank">
-                ▶️ Ver Explicación en YouTube
+                ▶️ Video Explicativo
+            </a>
+            <a href="Cespedes%20Alvarado%20Edwin%20Eduardo%20-%20Modelos-de-Deep-Learning.pdf" class="link-item link-pdf" target="_blank">
+                📄 Presentación PDF
             </a>
         </div>
 
         <div class="description">
-            Este proyecto utiliza Redes Neuronales Profundas para identificar patrones de riesgo crediticio. 
-            Se implementaron técnicas avanzadas de preprocesamiento y arquitectura de modelos con TensorFlow/Keras.
+            Implementación de una Red Neuronal Profunda (DNN) para la detección temprana de riesgos crediticios. 
+            El proyecto aborda el desbalanceo de datos y busca maximizar la interpretabilidad de los modelos de inteligencia artificial.
         </div>
 
         <div class="stats-grid">
             <div class="stat-card">
-                <strong>Modelo:</strong><br>Red Neuronal Profunda (DNN)
+                <strong>Modelo Principal</strong><br>Red Neuronal Profunda
             </div>
             <div class="stat-card">
-                <strong>Técnica Clave:</strong><br>Balanceo de datos con SMOTE
+                <strong>Optimización</strong><br>SMOTE & Dropout layers
             </div>
         </div>
 
-        <h3>Contenido del Proyecto:</h3>
+        <h3>Puntos Clave del Proyecto:</h3>
         <ul>
-            <li>Análisis Exploratorio de Datos (EDA) interactivo.</li>
-            <li>Tratamiento de valores atípicos y escalado de variables.</li>
-            <li>Optimización de hiperparámetros.</li>
-            <li>Evaluación con matrices de confusión y curvas ROC/AUC.</li>
+            <li>Limpieza y preprocesamiento de datos bancarios masivos.</li>
+            <li>Entrenamiento de modelos supervisados con TensorFlow.</li>
+            <li>Análisis de métricas: Precisión, Recall y Curva ROC.</li>
+            <li>Interpretación de resultados con librerías especializadas.</li>
         </ul>
 
-        <p style="margin-top: 40px;">Para explorar el código fuente, las gráficas y los resultados detallados, utiliza el botón interactivo:</p>
+        <p style="margin-top: 40px; font-weight: 600;">Explora el código fuente y las visualizaciones interactivas:</p>
         
-        <a class="btn" href="https://nbviewer.org/github/eeduardocespedes-beep/Eduardo/blob/main/CESPEDES%20ALVARADO%20EDWIN%20EDUARDO%20prediccion_mora_creditos_DL.ipynb" target="_blank">
-            📖 Abrir Notebook Interactivo
+        <a class="btn-main" href="https://nbviewer.org/github/eeduardocespedes-beep/Eduardo/blob/main/CESPEDES%20ALVARADO%20EDWIN%20EDUARDO%20prediccion_mora_creditos_DL.ipynb" target="_blank">
+            🚀 Abrir Notebook Interactivo (Jupyter)
         </a>
     </div>
 </body>
